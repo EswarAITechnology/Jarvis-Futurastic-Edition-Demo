@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    >
+
+    <meta name="theme-color" content="#05070b">
+
+    <title>JARVIS | AI Command Center</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="background-grid"></div>
+    <div class="scanlines"></div>
+
+    <!-- Main Application -->
+    <main class="app">
+
+        <!-- ================= HEADER ================= -->
+        <header class="topbar">
+
+            <div class="brand">
+                <div class="brand-icon">
+                    <span></span>
+                </div>
+
+                <div>
+                    <h1>JARVIS</h1>
+                    <p>AI COMMAND CENTER</p>
+                </div>
+            </div>
+
+            <div class="status-area">
+                <div class="status-dot"></div>
+                <span id="systemStatus">ONLINE</span>
+            </div>
+
+        </header>
+
+
+        <!-- ================= MAIN HUD ================= -->
+        <section class="hero">
+
+            <div class="hero-label">
+                <span class="line"></span>
+                <span>SYSTEM CORE</span>
+                <span class="line"></span>
+            </div>
+
+            <!-- Animated Core -->
+            <div class="core-container">
+
+                <div class="core-ring ring-1"></div>
+                <div class="core-ring ring-2"></div>
+                <div class="core-ring ring-3"></div>
+
+                <div class="core-dots"></div>
+
+                <div class="core">
+
+                    <div class="core-inner">
+                        <div class="eye"></div>
+                    </div>
+
+                    <div class="core-text">
+                        JARVIS
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="core-status">
+                <span class="pulse"></span>
+                CORE ACTIVE
+            </div>
+
+        </section>
+
+
+        <!-- ================= QUICK STATS ================= -->
+        <section class="stats">
+
+            <div class="stat-card">
+                <div class="stat-title">
+                    CPU
+                </div>
+
+                <div class="stat-value">
+                    <span id="cpu">32</span>%
+                </div>
+
+                <div class="progress">
+                    <div id="cpuBar"></div>
+                </div>
+            </div>
+
+
+            <div class="stat-card">
+                <div class="stat-title">
+                    MEMORY
+                </div>
+
+                <div class="stat-value">
+                    <span id="memory">48</span>%
+                </div>
+
+                <div class="progress">
+                    <div id="memoryBar"></div>
+                </div>
+            </div>
+
+
+            <div class="stat-card">
+                <div class="stat-title">
+                    NETWORK
+                </div>
+
+                <div class="stat-value">
+                    <span id="network">87</span>%
+                </div>
+
+                <div class="progress">
+                    <div id="networkBar"></div>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ================= DASHBOARD ================= -->
+        <section class="dashboard">
+
+
+            <!-- SYSTEM MONITOR -->
+            <div class="panel monitor-panel">
+
+                <div class="panel-header">
+                    <span>SYSTEM MONITOR</span>
+                    <span class="live">LIVE</span>
+                </div>
+
+                <div class="graph">
+
+                    <div class="graph-grid"></div>
+
+                    <svg
+                        viewBox="0 0 500 160"
+                        preserveAspectRatio="none"
+                        class="graph-svg"
+                    >
+
+                        <polyline
+                            id="graphLine"
+                            points="
+                            0,125
+                            30,115
+                            60,130
+                            90,90
+                            120,105
+                            150,60
+                            180,82
+                            210,50
+                            240,70
+                            270,42
+                            300,80
+                            330,55
+                            360,75
+                            390,35
+                            420,58
+                            450,30
+                            500,50
+                            "
+                        />
+
+                    </svg>
+
+                </div>
+
+                <div class="graph-labels">
+                    <span>00:00</span>
+                    <span>05:00</span>
+                    <span>10:00</span>
+                    <span>15:00</span>
+                    <span>NOW</span>
+                </div>
+
+            </div>
+
+
+            <!-- SYSTEM INFORMATION -->
+            <div class="panel system-panel">
+
+                <div class="panel-header">
+                    <span>SYSTEM INFORMATION</span>
+                    <span class="indicator"></span>
+                </div>
+
+                <div class="system-list">
+
+                    <div>
+                        <span>CORE</span>
+                        <strong>JARVIS-X</strong>
+                    </div>
+
+                    <div>
+                        <span>MODE</span>
+                        <strong id="mode">ACTIVE</strong>
+                    </div>
+
+                    <div>
+                        <span>SECURITY</span>
+                        <strong>SECURE</strong>
+                    </div>
+
+                    <div>
+                        <span>UPTIME</span>
+                        <strong id="uptime">00:00:00</strong>
+                    </div>
+
+                    <div>
+                        <span>LOCATION</span>
+                        <strong>LOCAL</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- TERMINAL -->
+            <div class="panel terminal-panel">
+
+                <div class="panel-header">
+                    <span>JARVIS TERMINAL</span>
+                    <span class="terminal-dot"></span>
+                </div>
+
+                <div
+                    class="terminal"
+                    id="terminal"
+                >
+                    <div>
+                        <span class="terminal-green">[SYSTEM]</span>
+                        Initializing JARVIS...
+                    </div>
+
+                    <div>
+                        <span class="terminal-green">[CORE]</span>
+                        Neural engine online.
+                    </div>
+
+                    <div>
+                        <span class="terminal-blue">[NETWORK]</span>
+                        Connection established.
+                    </div>
+
+                    <div>
+                        <span class="terminal-green">[SECURITY]</span>
+                        Security protocols active.
+                    </div>
+
+                    <div>
+                        <span class="terminal-white">[JARVIS]</span>
+                        Awaiting command...
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- AUDIO VISUALIZER -->
+            <div class="panel audio-panel">
+
+                <div class="panel-header">
+                    <span>VOICE INTERFACE</span>
+                    <span id="voiceStatus">STANDBY</span>
+                </div>
+
+                <div
+                    class="waveform"
+                    id="waveform"
+                >
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </div>
+
+                <button
+                    class="voice-button"
+                    id="voiceButton"
+                >
+                    <span class="mic-icon">●</span>
+                    ACTIVATE VOICE
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= CHAT ================= -->
+        <section class="chat-section">
+
+            <div class="chat-header">
+
+                <div>
+                    <span class="small-label">
+                        ARTIFICIAL INTELLIGENCE
+                    </span>
+
+                    <h2>Command JARVIS</h2>
+                </div>
+
+                <div class="chat-state">
+                    READY
+                </div>
+
+            </div>
+
+
+            <div
+                class="messages"
+                id="messages"
+            >
+
+                <div class="message jarvis-message">
+                    <div class="message-name">
+                        JARVIS
+                    </div>
+
+                    <div class="message-content">
+                        Systems online. How may I assist you?
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="input-area">
+
+                <input
+                    type="text"
+                    id="messageInput"
+                    placeholder="Enter command..."
+                    autocomplete="off"
+                >
+
+                <button
+                    id="sendButton"
+                    class="send-button"
+                    aria-label="Send"
+                >
+                    ➤
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= FOOTER ================= -->
+        <footer>
+
+            <div>
+                JARVIS AI SYSTEM
+            </div>
+
+            <div id="clock">
+                00:00:00
+            </div>
+
+            <div>
+                v1.0
+            </div>
+
+        </footer>
+
+    </main>
+
+
+    <!-- Notification -->
+    <div
+        id="notification"
+        class="notification"
+    >
+        SYSTEM READY
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
