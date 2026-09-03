@@ -1,173 +1,254 @@
-// ===============================
-// JARVIS AI COMMAND CENTER
-// ===============================
-
-// Elements
-const input = document.getElementById("messageInput");
-const sendButton = document.getElementById("sendButton");
-const messages = document.getElementById("messages");
-
-const cpu = document.getElementById("cpu");
-const memory = document.getElementById("memory");
-const network = document.getElementById("network");
-
-const cpuBar = document.getElementById("cpuBar");
-const memoryBar = document.getElementById("memoryBar");
-const networkBar = document.getElementById("networkBar");
-
-const clock = document.getElementById("clock");
-const uptimeElement = document.getElementById("uptime");
-
-const systemStatus = document.getElementById("systemStatus");
-const mode = document.getElementById("mode");
-
-const voiceButton = document.getElementById("voiceButton");
-const voiceStatus = document.getElementById("voiceStatus");
-
-const terminal = document.getElementById("terminal");
-const notification = document.getElementById("notification");
+/* =====================================================
+   JARVIS AI COMMAND CENTER
+===================================================== */
 
 
-// ===============================
-// CLOCK
-// ===============================
+/* ================= ELEMENTS ================= */
+
+const input =
+    document.getElementById("messageInput");
+
+const sendButton =
+    document.getElementById("sendButton");
+
+const messages =
+    document.getElementById("messages");
+
+const cpu =
+    document.getElementById("cpu");
+
+const memory =
+    document.getElementById("memory");
+
+const network =
+    document.getElementById("network");
+
+const cpuBar =
+    document.getElementById("cpuBar");
+
+const memoryBar =
+    document.getElementById("memoryBar");
+
+const networkBar =
+    document.getElementById("networkBar");
+
+const clock =
+    document.getElementById("clock");
+
+const uptimeElement =
+    document.getElementById("uptime");
+
+const systemStatus =
+    document.getElementById("systemStatus");
+
+const mode =
+    document.getElementById("mode");
+
+const voiceButton =
+    document.getElementById("voiceButton");
+
+const voiceStatus =
+    document.getElementById("voiceStatus");
+
+const terminal =
+    document.getElementById("terminal");
+
+const notification =
+    document.getElementById("notification");
+
+const graphLine =
+    document.getElementById("graphLine");
+
+
+/* =====================================================
+   CLOCK
+===================================================== */
 
 function updateClock() {
 
     const now = new Date();
 
-    const hours = String(now.getHours()).padStart(2, "0");
-    const minutes = String(now.getMinutes()).padStart(2, "0");
-    const seconds = String(now.getSeconds()).padStart(2, "0");
+    const h =
+        String(now.getHours()).padStart(2,"0");
 
-    const time = `${hours}:${minutes}:${seconds}`;
+    const m =
+        String(now.getMinutes()).padStart(2,"0");
 
-    if (clock) {
-        clock.textContent = time;
-    }
+    const s =
+        String(now.getSeconds()).padStart(2,"0");
+
+    clock.textContent =
+        `${h}:${m}:${s}`;
 }
 
-setInterval(updateClock, 1000);
+setInterval(updateClock,1000);
+
 updateClock();
 
 
-// ===============================
-// UPTIME
-// ===============================
+/* =====================================================
+   UPTIME
+===================================================== */
 
-const startTime = Date.now();
+const startTime =
+    Date.now();
 
 function updateUptime() {
 
-    const secondsPassed =
-        Math.floor((Date.now() - startTime) / 1000);
+    const total =
+        Math.floor(
+            (Date.now() - startTime) / 1000
+        );
 
-    const hours =
-        Math.floor(secondsPassed / 3600);
+    const h =
+        Math.floor(total / 3600);
 
-    const minutes =
-        Math.floor((secondsPassed % 3600) / 60);
+    const m =
+        Math.floor((total % 3600) / 60);
 
-    const seconds =
-        secondsPassed % 60;
+    const s =
+        total % 60;
 
-    if (uptimeElement) {
-
-        uptimeElement.textContent =
-            `${String(hours).padStart(2, "0")}:` +
-            `${String(minutes).padStart(2, "0")}:` +
-            `${String(seconds).padStart(2, "0")}`;
-    }
+    uptimeElement.textContent =
+        `${String(h).padStart(2,"0")}:` +
+        `${String(m).padStart(2,"0")}:` +
+        `${String(s).padStart(2,"0")}`;
 }
 
-setInterval(updateUptime, 1000);
+setInterval(updateUptime,1000);
 
 
-// ===============================
-// SYSTEM STATISTICS
-// ===============================
+/* =====================================================
+   SYSTEM STATS
+===================================================== */
+
+function randomNumber(min,max) {
+
+    return Math.floor(
+        Math.random() * (max - min + 1)
+    ) + min;
+}
 
 function updateSystemStats() {
 
     const cpuValue =
-        Math.floor(Math.random() * 40) + 20;
+        randomNumber(20,65);
 
     const memoryValue =
-        Math.floor(Math.random() * 30) + 35;
+        randomNumber(35,70);
 
     const networkValue =
-        Math.floor(Math.random() * 20) + 70;
+        randomNumber(65,95);
 
 
-    if (cpu) {
-        cpu.textContent = cpuValue;
-    }
+    cpu.textContent =
+        cpuValue;
 
-    if (memory) {
-        memory.textContent = memoryValue;
-    }
+    memory.textContent =
+        memoryValue;
 
-    if (network) {
-        network.textContent = networkValue;
-    }
+    network.textContent =
+        networkValue;
 
 
-    if (cpuBar) {
-        cpuBar.style.width = `${cpuValue}%`;
-    }
+    cpuBar.style.width =
+        `${cpuValue}%`;
 
-    if (memoryBar) {
-        memoryBar.style.width = `${memoryValue}%`;
-    }
+    memoryBar.style.width =
+        `${memoryValue}%`;
 
-    if (networkBar) {
-        networkBar.style.width = `${networkValue}%`;
-    }
+    networkBar.style.width =
+        `${networkValue}%`;
 }
 
-setInterval(updateSystemStats, 2000);
+setInterval(
+    updateSystemStats,
+    2000
+);
 
 updateSystemStats();
 
 
-// ===============================
-// NOTIFICATION
-// ===============================
+/* =====================================================
+   GRAPH
+===================================================== */
+
+function updateGraph() {
+
+    const points = [];
+
+    const totalPoints = 15;
+
+    for (
+        let i = 0;
+        i < totalPoints;
+        i++
+    ) {
+
+        const x =
+            (500 / (totalPoints - 1)) * i;
+
+        const y =
+            randomNumber(25,125);
+
+        points.push(
+            `${x},${y}`
+        );
+    }
+
+    graphLine.setAttribute(
+        "points",
+        points.join(" ")
+    );
+}
+
+setInterval(
+    updateGraph,
+    2200
+);
+
+
+/* =====================================================
+   NOTIFICATION
+===================================================== */
 
 function showNotification(text) {
 
-    if (!notification) return;
+    notification.textContent =
+        text;
 
-    notification.textContent = text;
-
-    notification.classList.add("show");
+    notification.classList.add(
+        "show"
+    );
 
     setTimeout(() => {
 
-        notification.classList.remove("show");
+        notification.classList.remove(
+            "show"
+        );
 
-    }, 2200);
+    },2200);
 }
 
 
-// ===============================
-// ADD CHAT MESSAGE
-// ===============================
+/* =====================================================
+   CHAT
+===================================================== */
 
-function addMessage(text, sender) {
+function addMessage(text,sender) {
 
-    if (!messages) return;
-
-
-    const message = document.createElement("div");
+    const message =
+        document.createElement("div");
 
     message.className =
         `message ${sender}-message`;
 
 
-    const name = document.createElement("div");
+    const name =
+        document.createElement("div");
 
-    name.className = "message-name";
+    name.className =
+        "message-name";
 
     name.textContent =
         sender === "user"
@@ -175,14 +256,18 @@ function addMessage(text, sender) {
             : "JARVIS";
 
 
-    const content = document.createElement("div");
+    const content =
+        document.createElement("div");
 
-    content.className = "message-content";
+    content.className =
+        "message-content";
 
-    content.textContent = text;
+    content.textContent =
+        text;
 
 
     message.appendChild(name);
+
     message.appendChild(content);
 
     messages.appendChild(message);
@@ -193,9 +278,9 @@ function addMessage(text, sender) {
 }
 
 
-// ===============================
-// JARVIS RESPONSE
-// ===============================
+/* =====================================================
+   LOCAL JARVIS RESPONSE
+===================================================== */
 
 function getJarvisResponse(command) {
 
@@ -203,91 +288,105 @@ function getJarvisResponse(command) {
         command.toLowerCase().trim();
 
 
-    // Greeting
     if (
         text === "hi" ||
         text === "hello" ||
         text === "hey"
     ) {
 
-        return "Hello. JARVIS systems are online and ready.";
+        return (
+            "Hello. JARVIS systems are online."
+        );
     }
 
 
-    // Identity
     if (
         text.includes("who are you") ||
         text.includes("what are you")
     ) {
 
-        return "I am JARVIS, your AI command center.";
+        return (
+            "I am JARVIS, your AI command center."
+        );
     }
 
 
-    // System
     if (
-        text.includes("system status") ||
-        text.includes("system")
+        text.includes("system status")
     ) {
 
-        return "All primary systems are operational. Core status: ONLINE.";
+        return (
+            "All primary systems are operational. " +
+            "AI core, network, voice and security are ready."
+        );
     }
 
 
-    // CPU
     if (
-        text.includes("cpu") ||
-        text.includes("processor")
+        text.includes("cpu")
     ) {
 
-        return `Current CPU usage is ${cpu.textContent}%.`;
+        return (
+            `Current CPU load is ${cpu.textContent} percent.`
+        );
     }
 
 
-    // Memory
     if (
         text.includes("memory") ||
         text.includes("ram")
     ) {
 
-        return `Current memory usage is ${memory.textContent}%.`;
+        return (
+            `Current memory utilization is ${memory.textContent} percent.`
+        );
     }
 
 
-    // Network
     if (
-        text.includes("network") ||
-        text.includes("internet")
+        text.includes("network")
     ) {
 
-        return `Network activity is currently ${network.textContent}%.`;
+        return (
+            `Network activity is ${network.textContent} percent.`
+        );
     }
 
 
-    // Time
     if (
-        text.includes("time") ||
-        text.includes("clock")
+        text.includes("time")
     ) {
 
-        return `Current system time is ${clock.textContent}.`;
+        return (
+            `Current system time is ${clock.textContent}.`
+        );
     }
 
 
-    // Help
+    if (
+        text.includes("vision")
+    ) {
+
+        return (
+            "Vision mode can be activated using the VISION button."
+        );
+    }
+
+
     if (
         text.includes("help") ||
         text.includes("commands")
     ) {
 
         return (
-            "Available commands: system status, CPU, memory, " +
-            "network, time, hello and basic calculations."
+            "Available commands include system status, CPU, " +
+            "memory, network, time, vision and calculations."
         );
     }
 
 
-    // Basic calculator
+    /* BASIC CALCULATOR */
+
     if (
         /^[0-9+\-*/().\s]+$/.test(text)
     ) {
@@ -299,58 +398,56 @@ function getJarvisResponse(command) {
                     `"use strict"; return (${text})`
                 )();
 
-            return `Calculation complete: ${result}`;
+            return (
+                `Calculation complete: ${result}`
+            );
 
         } catch {
 
-            return "I could not calculate that.";
+            return (
+                "I could not calculate that."
+            );
         }
     }
 
 
-    // Default
     return (
-        "Command received. The JARVIS frontend is working, " +
-        "but the AI backend has not been connected yet."
+        "Command received. The interface is operational. " +
+        "Connect your AI backend to process advanced requests."
     );
 }
 
 
-// ===============================
-// SEND MESSAGE
-// ===============================
+/* =====================================================
+   SEND MESSAGE
+===================================================== */
 
 function sendMessage() {
-
-    if (!input) return;
-
 
     const text =
         input.value.trim();
 
 
-    if (!text) return;
+    if (!text)
+        return;
 
 
-    // User message
-    addMessage(text, "user");
+    addMessage(
+        text,
+        "user"
+    );
 
 
-    // Clear input
     input.value = "";
 
 
-    // Processing state
-    if (systemStatus) {
-        systemStatus.textContent = "PROCESSING";
-    }
+    systemStatus.textContent =
+        "PROCESSING";
 
-    if (mode) {
-        mode.textContent = "THINKING";
-    }
+    mode.textContent =
+        "THINKING";
 
 
-    // Simulate AI thinking
     setTimeout(() => {
 
         const response =
@@ -363,63 +460,90 @@ function sendMessage() {
         );
 
 
-        if (systemStatus) {
-            systemStatus.textContent = "ONLINE";
-        }
+        speakJarvis(response);
 
-        if (mode) {
-            mode.textContent = "ACTIVE";
-        }
 
-    }, 600);
+        systemStatus.textContent =
+            "ONLINE";
+
+        mode.textContent =
+            "ACTIVE";
+
+    },650);
 }
 
 
-// ===============================
-// SEND BUTTON
-// ===============================
+sendButton.addEventListener(
+    "click",
+    sendMessage
+);
 
-if (sendButton) {
 
-    sendButton.addEventListener(
-        "click",
-        sendMessage
+input.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            event.preventDefault();
+
+            sendMessage();
+        }
+    }
+);
+
+
+/* =====================================================
+   ROBOT VOICE
+===================================================== */
+
+function speakJarvis(text) {
+
+    if (
+        !("speechSynthesis" in window)
+    )
+        return;
+
+
+    speechSynthesis.cancel();
+
+
+    const utterance =
+        new SpeechSynthesisUtterance(text);
+
+
+    utterance.lang =
+        "en-IN";
+
+    utterance.rate =
+        0.82;
+
+    utterance.pitch =
+        0.45;
+
+    utterance.volume =
+        1;
+
+
+    speechSynthesis.speak(
+        utterance
     );
 }
 
 
-// ===============================
-// ENTER KEY
-// ===============================
-
-if (input) {
-
-    input.addEventListener(
-        "keydown",
-        function(event) {
-
-            if (event.key === "Enter") {
-
-                event.preventDefault();
-
-                sendMessage();
-            }
-        }
-    );
-}
-
-
-// ===============================
-// VOICE ASSISTANT
-// ===============================
-
-let recognition = null;
-let listening = false;
-
+/* =====================================================
+   VOICE INPUT
+===================================================== */
 
 const SpeechRecognition =
     window.SpeechRecognition ||
     window.webkitSpeechRecognition;
+
+let recognition = null;
+
+let listening = false;
 
 
 if (SpeechRecognition) {
@@ -431,66 +555,56 @@ if (SpeechRecognition) {
     recognition.lang =
         "en-IN";
 
-
     recognition.continuous =
         false;
-
 
     recognition.interimResults =
         false;
 
 
-    recognition.onstart = function() {
+    recognition.onstart =
+        () => {
 
-        listening = true;
+            listening = true;
 
+            voiceStatus.textContent =
+                "LISTENING";
 
-        voiceStatus.textContent =
-            "LISTENING";
+            voiceButton.classList.add(
+                "active"
+            );
 
-
-        voiceButton.classList.add(
-            "active"
-        );
-
-
-        showNotification(
-            "VOICE INTERFACE ACTIVE"
-        );
-    };
+            showNotification(
+                "VOICE INTERFACE ACTIVE"
+            );
+        };
 
 
     recognition.onresult =
-        function(event) {
+        event => {
 
             const transcript =
-                event
-                    .results[0][0]
+                event.results[0][0]
                     .transcript;
-
 
             input.value =
                 transcript;
-
 
             sendMessage();
         };
 
 
     recognition.onerror =
-        function() {
+        () => {
 
             listening = false;
-
 
             voiceStatus.textContent =
                 "STANDBY";
 
-
             voiceButton.classList.remove(
                 "active"
             );
-
 
             showNotification(
                 "VOICE INPUT ERROR"
@@ -499,14 +613,12 @@ if (SpeechRecognition) {
 
 
     recognition.onend =
-        function() {
+        () => {
 
             listening = false;
 
-
             voiceStatus.textContent =
                 "STANDBY";
-
 
             voiceButton.classList.remove(
                 "active"
@@ -516,7 +628,7 @@ if (SpeechRecognition) {
 
     voiceButton.addEventListener(
         "click",
-        function() {
+        () => {
 
             if (listening) {
 
@@ -524,7 +636,14 @@ if (SpeechRecognition) {
 
             } else {
 
-                recognition.start();
+                try {
+
+                    recognition.start();
+
+                } catch {
+
+                    /* Already running */
+                }
             }
         }
     );
@@ -533,56 +652,47 @@ if (SpeechRecognition) {
 
     voiceButton.addEventListener(
         "click",
-        function() {
+        () => {
 
             showNotification(
-                "VOICE IS NOT SUPPORTED"
+                "VOICE INPUT NOT SUPPORTED"
             );
-
         }
     );
 }
 
 
-// ===============================
-// TERMINAL LIVE LOGS
-// ===============================
+/* =====================================================
+   TERMINAL
+===================================================== */
 
 const terminalLogs = [
 
     "[SYSTEM] Neural engine synchronized.",
-
     "[CORE] JARVIS processor stable.",
-
     "[NETWORK] Connection verified.",
-
     "[SECURITY] Security protocols active.",
-
     "[AI] Context engine ready.",
-
+    "[VISION] Vision subsystem ready.",
+    "[VOICE] Speech engine ready.",
     "[SYSTEM] Monitoring hardware.",
-
-    "[CORE] Processing resources optimized.",
-
-    "[JARVIS] Awaiting command..."
+    "[JARVIS] Awaiting command."
 
 ];
-
 
 let terminalIndex = 0;
 
 
 function addTerminalLog() {
 
-    if (!terminal) return;
-
-
     const line =
         document.createElement("div");
 
 
     line.textContent =
-        terminalLogs[terminalIndex];
+        terminalLogs[
+            terminalIndex
+        ];
 
 
     terminal.appendChild(line);
@@ -596,10 +706,6 @@ function addTerminalLog() {
             terminal.firstChild
         );
     }
-
-
-    terminal.scrollTop =
-        terminal.scrollHeight;
 
 
     terminalIndex++;
@@ -616,24 +722,381 @@ function addTerminalLog() {
 
 setInterval(
     addTerminalLog,
-    3500
+    3000
 );
 
 
-// ===============================
-// STARTUP
-// ===============================
+/* =====================================================
+   VISION MODE
+===================================================== */
+
+const visionButton =
+    document.getElementById(
+        "visionButton"
+    );
+
+const visionOverlay =
+    document.getElementById(
+        "visionOverlay"
+    );
+
+const cameraFeed =
+    document.getElementById(
+        "cameraFeed"
+    );
+
+const closeVision =
+    document.getElementById(
+        "closeVision"
+    );
+
+const gestureStatus =
+    document.getElementById(
+        "gestureStatus"
+    );
+
+const zoomStatus =
+    document.getElementById(
+        "zoomStatus"
+    );
+
+
+let cameraStream = null;
+
+let visionZoom = 1;
+
+let initialDistance = null;
+
+let initialZoom = 1;
+
+
+/* =====================================================
+   OPEN CAMERA
+===================================================== */
+
+visionButton.addEventListener(
+    "click",
+    async () => {
+
+        if (
+            !navigator.mediaDevices ||
+            !navigator.mediaDevices.getUserMedia
+        ) {
+
+            showNotification(
+                "CAMERA NOT SUPPORTED"
+            );
+
+            return;
+        }
+
+
+        try {
+
+            cameraStream =
+                await navigator.mediaDevices
+                    .getUserMedia({
+
+                        video: {
+                            facingMode:
+                                "user"
+                        },
+
+                        audio: false
+
+                    });
+
+
+            cameraFeed.srcObject =
+                cameraStream;
+
+
+            visionOverlay.classList.add(
+                "active"
+            );
+
+
+            gestureStatus.textContent =
+                "VISION ONLINE";
+
+
+            zoomStatus.textContent =
+                "ZOOM 1.00X";
+
+
+            speakJarvis(
+                "Vision system online."
+            );
+
+
+            showNotification(
+                "VISION SYSTEM ONLINE"
+            );
+
+        } catch (error) {
+
+            showNotification(
+                "CAMERA ACCESS DENIED"
+            );
+
+            gestureStatus.textContent =
+                "CAMERA PERMISSION REQUIRED";
+        }
+    }
+);
+
+
+/* =====================================================
+   CLOSE CAMERA
+===================================================== */
+
+function closeVisionMode() {
+
+    visionOverlay.classList.remove(
+        "active"
+    );
+
+
+    if (cameraStream) {
+
+        cameraStream
+            .getTracks()
+            .forEach(
+                track =>
+                    track.stop()
+            );
+
+        cameraStream = null;
+    }
+
+
+    cameraFeed.srcObject =
+        null;
+
+
+    visionZoom = 1;
+
+
+    cameraFeed.style.transform =
+        "scale(1)";
+
+
+    gestureStatus.textContent =
+        "CAMERA READY";
+
+    zoomStatus.textContent =
+        "ZOOM 1.00X";
+}
+
+
+closeVision.addEventListener(
+    "click",
+    closeVisionMode
+);
+
+
+/* =====================================================
+   ESCAPE TO CLOSE
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Escape" &&
+            visionOverlay.classList.contains(
+                "active"
+            )
+        ) {
+
+            closeVisionMode();
+        }
+    }
+);
+
+
+/* =====================================================
+   PINCH ZOOM
+===================================================== */
+
+function getTouchDistance(touches) {
+
+    const dx =
+        touches[0].clientX -
+        touches[1].clientX;
+
+    const dy =
+        touches[0].clientY -
+        touches[1].clientY;
+
+
+    return Math.sqrt(
+        dx * dx + dy * dy
+    );
+}
+
+
+visionOverlay.addEventListener(
+    "touchstart",
+    event => {
+
+        if (
+            event.touches.length !== 2
+        )
+            return;
+
+
+        initialDistance =
+            getTouchDistance(
+                event.touches
+            );
+
+
+        initialZoom =
+            visionZoom;
+
+
+        gestureStatus.textContent =
+            "PINCH TRACKING";
+    },
+    {
+        passive: true
+    }
+);
+
+
+visionOverlay.addEventListener(
+    "touchmove",
+    event => {
+
+        if (
+            event.touches.length !== 2 ||
+            initialDistance === null
+        )
+            return;
+
+
+        const distance =
+            getTouchDistance(
+                event.touches
+            );
+
+
+        const scale =
+            distance /
+            initialDistance;
+
+
+        visionZoom =
+            initialZoom * scale;
+
+
+        visionZoom =
+            Math.min(
+                4,
+                Math.max(
+                    .7,
+                    visionZoom
+                )
+            );
+
+
+        cameraFeed.style.transform =
+            `scale(${visionZoom})`;
+
+
+        zoomStatus.textContent =
+            `ZOOM ${visionZoom.toFixed(2)}X`;
+    },
+    {
+        passive: true
+    }
+);
+
+
+visionOverlay.addEventListener(
+    "touchend",
+    event => {
+
+        if (
+            event.touches.length < 2
+        ) {
+
+            initialDistance =
+                null;
+
+            gestureStatus.textContent =
+                "VISION ONLINE";
+        }
+    },
+    {
+        passive: true
+    }
+);
+
+
+/* =====================================================
+   MOUSE WHEEL ZOOM
+   Useful on computer
+===================================================== */
+
+visionOverlay.addEventListener(
+    "wheel",
+    event => {
+
+        event.preventDefault();
+
+
+        const amount =
+            event.deltaY > 0
+                ? -.1
+                : .1;
+
+
+        visionZoom += amount;
+
+
+        visionZoom =
+            Math.min(
+                4,
+                Math.max(
+                    .7,
+                    visionZoom
+                )
+            );
+
+
+        cameraFeed.style.transform =
+            `scale(${visionZoom})`;
+
+
+        zoomStatus.textContent =
+            `ZOOM ${visionZoom.toFixed(2)}X`;
+    },
+    {
+        passive: false
+    }
+);
+
+
+/* =====================================================
+   STARTUP
+===================================================== */
 
 window.addEventListener(
     "load",
-    function() {
+    () => {
 
-        setTimeout(() => {
+        setTimeout(
+            () => {
 
-            showNotification(
-                "JARVIS SYSTEM ONLINE"
-            );
+                showNotification(
+                    "JARVIS SYSTEM ONLINE"
+                );
 
-        }, 700);
+            },
+            700
+        );
     }
 );
